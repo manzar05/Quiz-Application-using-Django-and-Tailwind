@@ -1,0 +1,147 @@
+{% extends 'new_user/authentication_template.html' %}
+{% load static %}
+{% block authentication_block %}
+<style>
+.regent_registration{margin-top: 10px;}.pwd_icon {bottom: 26px;}.data_container{display: grid;grid-template-rows: repeat(4,1fr);grid-template-columns: repeat(2,1fr);gap: 0.45rem 1rem;}.registration_box{width: calc(65% - 10rem);padding: 3rem;padding-bottom: 4rem;}.error_msg{position: absolute;visibility: visible;top: 75%;left: 5px;color: red;font-size: 12px;font-weight: 600;}
+</style>
+<div class="login_link text-end" style="font-weight: 500;">Already have account?<a href="{% url 'login' %}" class="text-[#64748b]" style="color: #c0c0c0;">Sign In</a></div>
+<div class="registration_box">
+    <div class="heading_container">
+        <a class="navbar-brand" href="{% url 'home' %}">Quiz<span class="logo_beta">Beta</span></a>   
+        <p style="margin-bottom: 0px;margin-top: 12px;">Register</p>
+    </div>
+    <form class="regent_registration" method="post" >
+        {% csrf_token %}
+        <div class="data_container">
+            <div class="register_input_box">
+                <input type="text" placeholder="First Name" name="first_name" id="first_name" required onkeyup="firstNameHandler()">
+                <span id="first_name_error" class="error_msg"></span>
+            </div>
+            <div class="register_input_box">
+                <input type="text" placeholder="Last Name" name="last_name" id="last_name" required onkeyup="lastNameHandler()">
+                <span id="last_name_error" class="error_msg"></span>
+            </div>
+            <div class="register_input_box">
+                <input type="text" placeholder="Email address" name="email_id" id="email_id" required onkeyup="emailHandler()">
+                <span id="email_id_error" class="error_msg"></span>
+            </div>
+            <div class="register_input_box">
+                <input type="text" placeholder="Username" name="username" id="username" required onkeyup="usernameHandler()">
+                <span id="username_error" class="error_msg"></span>
+            </div>
+            <div class="register_input_box">
+                <img src="{% static 'images/eye-off.svg' %}" alt="" id="make_new_pwd_icon" class="pwd_icon">
+                <input type="password" placeholder="Password" name="password" class="custom-input" id="make_new_password" onkeyup="passwordHandler()">
+                <span id="make_new_password_error" class="error_msg"></span>
+            </div>
+            <div class="register_input_box">
+                <img src="{% static 'images/eye-off.svg' %}" alt="" id="confirm_new_pwd_icon" class="pwd_icon">
+                <input type="password" placeholder="Confirm Password" class="custom-input" id="confirm_new_password" name="confirm_password" onkeyup="confirmPasswordHandler()">
+                <span id="confirm_new_password_error" class="error_msg"></span>
+            </div>
+        </div>
+        <div class="register_input_submit">
+            <button name="submit" class="submit_btn" type="submit" onclick="validateFormHandler()">Submit</button>
+        </div>      
+    </form>
+</div>
+<script>
+const firstName = document.getElementById("first_name"),
+    lastName = document.getElementById("last_name"),
+    email = document.getElementById("email_id"),
+    username = document.getElementById("username"),
+    passwordInput = document.getElementById("make_new_password"),
+    cpassword = document.getElementById("confirm_new_password");
+let firstNameFlag = !1,
+    lastNameFlag = !1,
+    emailFlag = !1,
+    usernameFlag = !1,
+    passwordFlag = !1,
+    confirmPasswordFlag = !1;
+const makeNewPwdInput = document.getElementById("make_new_password"),
+    confirmNewPwdInput = document.getElementById("confirm_new_password"),
+    makeNewPwdIcon = document.getElementById("make_new_pwd_icon"),
+    confirmNewPwdIcon = document.getElementById("confirm_new_pwd_icon");
+function firstNameHandler() {
+    const e = firstName.value.trim();
+    "" === e
+        ? (showError(firstName, "First Name is required"), (firstNameFlag = !1))
+        : /^(?!.*\s{2})(?!.*\.\.)(?!.*\d)(?!.*(.)\1{2})(?=.{3,})(?=.*[a-zA-Z])[a-zA-Z\s\.]+(?<!\s)$/.test(e)
+        ? (hideError(firstName), (firstNameFlag = !0))
+        : (showError(firstName, "First Name is not valid"), (firstNameFlag = !1));
+}
+function lastNameHandler() {
+    const e = lastName.value.trim();
+    "" === e
+        ? (showError(lastName, "Last Name is required"), (lastNameFlag = !1))
+        : /^(?!.*\s{2})(?!.*\.\.)(?!.*\d)(?!.*(.)\1{2})(?=.{3,})(?=.*[a-zA-Z])[a-zA-Z\s\.]+(?<!\s)$/.test(e)
+        ? (hideError(lastName), (lastNameFlag = !0))
+        : (showError(lastName, "Last Name is not valid"), (lastNameFlag = !1));
+}
+function showError(e, t) {
+    const a = document.getElementById(`${e.id}_error`);
+    (a.textContent = t), (a.style.visibility = "visible"), e.classList.add("error");
+}
+function hideError(e) {
+    const t = document.getElementById(`${e.id}_error`);
+    (t.textContent = ""), (t.style.visibility = "hidden"), e.classList.remove("error");
+}
+function emailHandler() {
+    const e = email.value.trim().toLowerCase();
+    "" === e
+        ? (showError(email, "Email is required"), (emailFlag = !1))
+        : "@" == e[0] || "#" == e[0] || "$" == e[0] || "%" == e[0] || "&" == e[0] || "^" == e[0]
+        ? (showError(email, "First letter should not start with special character"), (emailFlag = !1))
+        : /^([A-Za-z0-9_]+[-.]?[A-Za-z0-9_]+)+@(?!(?:[A-Za-z0-9_]+\.)?([A-Za-z]{2,4})\.\2)([A-Za-z0-9_]+[-.]?[A-Za-z0-9_]+)+\.([A-Za-z]{2,4})$/.test(e)
+        ? (hideError(email), (emailFlag = !0))
+        : (showError(email, "Email is invalid"), (emailFlag = !1));
+}
+function passwordHandler() {
+    const e = passwordInput.value;
+    /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@£$%^&*]).{8,20}/.test(e)
+        ? e.length < 8
+            ? (showError(passwordInput, "Minimum Length 8"), (passwordFlag = !1))
+            : "" == e
+            ? (showError(passwordInput, "Password Required"), (passwordFlag = !1))
+            : (hideError(passwordInput), (passwordFlag = !0))
+        : (showError(passwordInput, "Combination of Sp. characters,digits,letters"), (passwordFlag = !1));
+}
+function confirmPasswordHandler() {
+    const e = passwordInput.value;
+    "" === e
+        ? (showError(cpassword, "Invalid Password"), (confirmPasswordFlag = !1))
+        : cpassword.value != e
+        ? (showError(cpassword, "Password does not match"), (confirmPasswordFlag = !1))
+        : (hideError(cpassword), (confirmPasswordFlag = !0));
+}
+function usernameHandler() {
+    const e = username.value.trim();
+    "" === e ? (showError(username, "Username is required"), (usernameFlag = !1)) : /^(?!.*\s{2})(?!.*\.\.)(?!.*\d)(?!.*(.)\1{2})(?=.{3,})(?=.*[a-zA-Z])[a-zA-Z\s\.]+(?<!\s)$/.test(e) ? (hideError(username), (usernameFlag = !0)) : (showError(username, "Username is not valid"), (usernameFlag = !1));
+}
+
+function validateFormHandler() {
+    return !1 === emailFlag
+        ? (alertHandler('Error','Invalid Value','Please Insert a valid Email Id'), event.preventDefault(), !1)
+        : !1 === firstNameFlag
+        ? (alertHandler('Error','Invalid Value','Please Insert a valid First Name'), event.preventDefault(), !1)
+        : !1 === lastNameFlag
+        ? (alertHandler('Error','Invalid Value','Please Insert a valid Last Name'), event.preventDefault(), !1)
+        : !1 === usernameFlag
+        ? (alertHandler('Error','Invalid Value','Please Insert a valid Username'), event.preventDefault(), !1)
+        : !1 === passwordFlag
+        ? (alertHandler('Error','Invalid Value','Please Insert a valid Password'), event.preventDefault(), !1)
+        : !1 !== confirmPasswordFlag || (alertHandler('Error','Invalid Value','Password not matched'), event.preventDefault(), !1);
+}
+makeNewPwdIcon.addEventListener("click", (e) => {
+    e.preventDefault();
+    const t = "password" === makeNewPwdInput.getAttribute("type") ? '{% static "images/eye.svg" %}' : '{% static "images/eye-off.svg" %}';
+    makeNewPwdIcon.setAttribute("src", t), makeNewPwdInput.setAttribute("type", "password" === makeNewPwdInput.getAttribute("type") ? "text" : "password");
+}),
+    confirmNewPwdIcon.addEventListener("click", (e) => {
+        e.preventDefault();
+        const t = "password" === confirmNewPwdInput.getAttribute("type") ? '{% static "images/eye.svg" %}' : '{% static "images/eye-off.svg" %}';
+        confirmNewPwdIcon.setAttribute("src", t), confirmNewPwdInput.setAttribute("type", "password" === confirmNewPwdInput.getAttribute("type") ? "text" : "password");
+    });
+
+</script>
+{% endblock authentication_block %}

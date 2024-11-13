@@ -1,0 +1,394 @@
+.registration_container{
+    display:flex;
+    flex-direction: column;
+    height: calc(100vh - 10px);
+}
+.navbar-brand{
+    position: relative;
+    display: inline-block;
+    padding: 2px;
+    font-weight: 700;
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    color:#17a2b8;
+}
+.navbar-brand:hover{
+    cursor: pointer;
+    color: #17a2b8;
+    transition: all 0.2s;
+}
+.logo_beta{
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    padding: 1px 8px;
+    border-radius: 3rem;
+    border: 1p solid #17a2b8;
+    background: #f9efea;
+    color: #17a2b8;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 1.1rem;
+    transform: translateY(-50%);
+}
+.google_registration{
+    width: calc(100%);
+    position: relative;
+}
+.google_registration a{
+    border: 1px solid #8b8b8b;
+    background: #fff;
+    color: #2a2a2a;
+    text-align: center;
+    padding: 0px;
+    padding:3px;
+    border-radius: 4px;
+    width: 100%;
+    display: block;
+    text-decoration: none;
+}
+.google_registration a:hover{
+    background: #d8d8d8;
+    border: 1px solid #d8d8d8;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+
+.registration_box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border: none;
+    outline: none;
+    width: 400px;
+    height: auto;
+    padding: 50px 20px;
+    border-radius: 4px;
+    /* box-shadow: 1px 1px 10px #0000003d; */
+    box-shadow: 5px 5px 20px #0000001b;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+.regent_registration{
+    box-sizing: border-box;
+    width: 100%;
+}
+.register_checkbox{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 90%;
+    padding-left: 10px;
+}
+.register_checkbox input{
+    margin-top: 5px;
+}
+.register_checkbox label{
+    padding-left: 5px;
+    text-align: justify;
+}
+.register_input_box{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.register_input_box label{
+    font-weight: 600;
+    color: #183B56;
+    padding: 0px 0px 3px 8px;
+}
+.register_input_box input,
+.register_input_box select{
+    background: #ffffff;
+    outline: none;
+    border: none;
+    color: #383838;
+    padding: 5px;
+    border: 1px solid #d8d8d8;
+    padding-left: 10px;
+    border-radius: 4px;
+    width: 100%;
+    margin-bottom: 15px;
+}
+#password{
+    margin-bottom: 0px;
+}
+.register_input_box input::placeholder{
+    color: #828282;
+}
+.register_input_box input:focus,
+.register_input_box select:focus{
+    border: 1px solid #17a2b8;
+    color: #17a2b8;
+    background: #fff;
+    transition: all 0.2s;
+  }
+.register_input_submit{
+  margin-top: 10px;
+}
+  .submit_btn{
+      background: #17a2b8;
+      padding: 5px;
+      border-radius: 4px;
+      border: 1px solid transparent;
+      outline: none;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 500;
+      width: 100%;
+      }
+  
+  .submit_btn:hover{
+    cursor: pointer;
+    background: #F5F5F5;
+    border: 1px solid #17a2b8;
+    color: #17a2b8;
+    transition: all 0.2s;
+  }
+  .signup_link,.forget_link{
+      display: block;
+      padding-right: 10px;
+      margin-top: 8px;
+  }
+  .forget_link{
+      font-weight: 500;
+      padding: 0px;
+      margin-bottom: 8px;
+  }
+  .signup_link a, .forget_link a{
+      padding-left: 5px;
+      color: #17a2b8;
+      text-decoration: none;
+  }
+  .signup_link a:hover,.forget_link a:hover{
+      cursor: pointer;
+      text-decoration: underline;
+      color:#183B56;
+      transition: all 0.2s;
+  }
+  /* Assuming you have a class for the input, for example, .custom-input */
+.custom-input::-ms-reveal {
+    display: none;
+}
+.pwd_icon{
+    width: 20px;
+    position: absolute;
+    right: 11px;
+    bottom: 10px;
+    z-index: 1;
+}
+.google_registration a img{
+    width: 30px;
+}
+
+/* Registration form */
+.register_checkbox{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 90%;
+    padding-left: 10px;
+    margin-bottom: 10px;
+}
+.register_checkbox input{
+    margin-top: 5px;
+}
+
+.register_checkbox label{
+    padding-left: 5px;
+    font-size: 12px;
+    text-align: justify;
+}
+.login_link{
+    padding: 20px 40px;
+}
+.login_link a{
+    padding-left: 5px;
+    color: #17a2b8;
+    text-decoration: none;
+}
+.login_link a:hover{
+    cursor: pointer;
+    text-decoration: underline;
+    color:#183B56;
+    transition: all 0.2s;
+}
+.heading_container,.form_divider{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+}
+.form_divider{
+    border-bottom: 1px solid rgb(183 183 183);
+    position: relative;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+.option_or{
+    position: absolute;
+    top: -15px;
+    padding: 2px 10px;
+    background: #fff;
+    margin: 0px;
+}
+/* Verify OTP */
+.verify_input_box{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.verify_input_box input{
+    background: #F3F3F4;
+    outline: none;
+    border: none;
+    color: #17a2b8;
+    padding: 3px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 4px;
+    margin: 10px;
+    margin-bottom: 20px;
+    width: 70px;
+    height: 70px;
+}
+
+.verify_input_box input:focus{
+    border: 1px solid #FF8345;
+    color: #FF8345;
+    background: #fff;
+    transition: all 0.2s;
+}
+@media screen and (max-width:768px) {
+    .registration_left{
+        display: none;
+    }
+    .registration_box{
+        width: calc(100% - 60vw);
+    }
+    .pwd_icon{
+        width: 17px;
+        right: 10px;
+        bottom: 24px;
+    }
+    .signup_link,.forget_link{
+        font-size: 16px;
+    }
+    .register_input_box input,
+    .register_input_box select{
+        margin-bottom: 15px;
+        padding: 5px;
+        padding-left: 10px;
+    }
+    .submit_btn{
+        padding: 5px;
+        font-size: 16px;
+    }
+    #divider{
+        top: 37%;
+    }
+    .google_registration a img{
+        width: 32px;
+    }
+    .register_input_submit{
+        margin-top: 0px;
+    }
+    .forget_link {
+        margin-top: 16px;
+        margin-bottom: 0px;
+    }
+    .google_registration{
+        margin-top: 30px;
+    }
+}
+@media screen and (max-width:600px){
+    .registration_box{
+        width: calc(100% - 40vw);
+    }
+    .registration_left{
+        display: none;
+    }
+    .pwd_icon{
+        width: 17px;
+        right: 10px;
+        bottom: 24px;
+    }
+    .signup_link,.forget_link{
+        font-size: 14px;
+    }
+    .register_input_box input,
+    .register_input_box select{
+        margin-bottom: 15px;
+    }
+    .submit_btn{
+        padding: 3px;
+        font-size: 14px;
+    }
+    #divider{
+        top: 37%;
+    }
+    .google_registration a img{
+        width: 27px;
+    }
+    .register_input_submit{
+        margin-top: 0px;
+    }
+    .forget_link {
+        margin-top: 16px;
+        margin-bottom: 0px;
+    }
+    .google_registration{
+        margin-top: 30px;
+    }
+    .register_checkbox input{
+        margin-top: 2px;
+    }
+    .login_link{
+        text-align: center !important;
+    }
+    .verify_input_box input{
+        margin-bottom: 20px;
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media screen and (max-width:550px) {
+    .registration_box{
+        width: calc(100% - 20vw);
+    }
+    
+}
+@media screen and (max-width:2560px) {
+.image_text_top{
+    position: absolute;
+    top: 5%;
+    left: 8%;
+    transform: translate(-5%,-8%);
+    color: #F3F3F4;
+    font-size: 22px;
+    width: 60%;
+    text-align: justify;
+}
+.image_text_bottom{
+    position: absolute;
+    bottom: 3%;
+    left: 8%;
+    transform: translate(-5%,-8%);
+    color: #F3F3F4;
+    width: 90%;
+    font-size: 24px;
+    font-weight: 500;
+}
+}

@@ -1,0 +1,361 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block container %}
+<style>
+.question_container{
+    color: #000000c7;
+    font-size: 16px;
+}
+.question_container::before{
+    content: "Question :";
+    font-weight: bold;
+    padding-right: 0.5rem;
+    color: #fea924;
+    font-size: 18px;
+}
+.option_1_container,
+.option_2_container,
+.option_3_container,
+.option_4_container
+{
+    border: 1px solid transparent;
+    color: rgb(32, 32, 32);
+    cursor: pointer;
+    transition: all 0.2s;
+    padding-left: 1rem;
+}
+.option_1_container.active,
+.option_2_container.active,
+.option_3_container.active,
+.option_4_container.active
+{
+    border-radius: 12px;
+    background-color: #c6ffc6a6;
+    border: 1px solid #00a80021;
+    color: #00a800;
+}
+.option_1_container span,
+.option_1_container p,
+.option_2_container span,
+.option_2_container p,
+.option_3_container span,
+.option_3_container p,
+.option_4_container span,
+.option_4_container p
+{
+    font-size: clamp(16px,50%,20px);
+    text-align: left;
+}
+.question_count{
+    width: 100%;
+    font-size: 14px;
+    color: darkgray;
+    font-weight: bold;
+    padding: 0rem 0.5rem;
+}
+.question_count::before{
+    content: "Question ";
+    color: darkgray;
+}
+.modal_container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(34, 34, 34, 0.571);
+}
+.test_set_container{
+    width: 600px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: white;
+    padding: 1rem 2rem;
+    border-radius: 14px;
+}
+.start_quiz{
+    border-radius: 4px;
+    color:white; 
+    background-color: #fea924; 
+    padding:0.25rem 1rem; 
+    margin-top: 2rem;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: 600;
+}
+.start_quiz:hover{
+    cursor: pointer;
+    transition: all 0.2s;
+    background-color: #f87f1c;
+}
+h1{
+    font-size: 24px;
+}
+.result_modal_container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(34, 34, 34, 0.571);
+        color: black;
+    }
+    .test_set_container{
+        width: 600px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        background-color: white;
+        padding: 1rem 2rem;
+        border-radius: 14px;
+    }
+    .incorrect{
+    color: #ff2626ba;
+    font-weight: 600;
+    }
+    .correct{
+    color: #00cb00d1;
+    font-weight: 600;
+    }
+    .total_marks{
+    color: #17a2b8;
+    font-weight: 600;
+    }
+    .completed{
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: 0.1rem;
+        background-color: #ff7200db;
+        color: white;
+        padding: 0.25rem 1rem;
+        border-radius: 6px;
+        margin: 1.5rem 0rem;
+        margin-top: 2rem;
+    }
+    .border_bottom{
+        border-bottom: 1px solid rgba(32, 32, 32, 0.085);
+    }
+    h3{
+        font-size:20px;
+    }
+    #go_to_home:hover{
+        text-decoration: underline;
+    }
+</style>
+<div class="main_container text-3xl flex flex-col items-center justify-center w-full">
+    <div class='grid gap-5 grid-cols-4 auto-rows-[minmax(260px,auto)] text-[#171717] w-full'>
+        <div class="col-span-4 row-span-1 sm:row-span-2 px-4 py-2 sm:py-5 flex flex-col items-center justify-center bg-[#17a2b8]">
+            <h1 class="w-full text-center font-semibold text-white">You have 30 questions <br>Each question will have 4 options <br>Please select correct answer and complete the test</h1>
+            <button id="start_test" class="start_quiz">Start Now</button>
+        </div>
+    </div>
+    <div class="modal_container" style="display: none;">
+        <form class="test_set_container flex items-start justify-start flex-col min-w-[400px] rounded-xl shadow-md  bg-white" style="position: relative;">
+            {% csrf_token %}
+            <i class="fa-solid fa-xmark" style="position: absolute; right: 2rem; top: 1.5rem; color: black;font-size: 16px;cursor: pointer;"></i>
+            <p class="text-center question_count"></p>
+            <h3 class="question_container text-xl text-[#323232c7] mb-4" data-question-id=""></h3>
+            <div class="answers w-full">
+                <div class="option_container option_1_container flex items-start justify-center p-1 rounded-sm">
+                    <span class="check_icon py-1"><i class="fa-regular fa-square-check" style="display: none;"></i><i class="fa-regular fa-square"></i></span>
+                    <p class="w-full py-1 px-4"></p>
+                </div>
+                <div class="option_container option_2_container flex items-start justify-center p-1 rounded-sm">
+                    <span class="check_icon py-1"><i class="fa-regular fa-square-check" style="display: none;"></i><i class="fa-regular fa-square"></i></span>
+                    <p class="w-full py-1 px-4"></p>
+                </div>
+                <div class="option_container option_3_container flex items-start justify-center p-1 rounded-sm">
+                    <span class="check_icon py-1"><i class="fa-regular fa-square-check" style="display: none;"></i><i class="fa-regular fa-square"></i></span>
+                    <p class="w-full py-1 px-4"></p>
+                </div>
+                <div class="option_container option_4_container flex items-start justify-center p-1 rounded-sm">
+                    <span class="check_icon py-1"><i class="fa-regular fa-square-check" style="display: none;"></i><i class="fa-regular fa-square"></i></span>
+                    <p class="w-full py-1 px-4"></p>
+                </div>
+            </div>
+            <div class="w-full" style="width: 100%; text-align: end; margin-top: 1rem;">
+                <button type="button" id="next_button" class="" style="margin-left: auto;font-size: 16px; border-radius: 4px; background-color: #17a2b8; padding:0rem 1rem;">Next</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="result_modal_container" style="z-index: 10;display: none;">
+    <div class="test_set_container flex items-center justify-start flex-col min-w-[400px] rounded-xl shadow-md bg-white" style="">
+        <p class="text-center completed">Final Result</p>
+        <hr/>
+        <div class="answers text-left w-[80%]">
+            <div class="flex items-start justify-between p-1 rounded-sm border_bottom">
+                <p class="py-1 total_marks" style="width: 80%;">Total Marks:</p>
+                <p class="py-1 px-4 font-semibold total_marks" >{{ total_marks }}</p>
+            </div>
+            <div class="flex items-start justify-between p-1 rounded-sm border_bottom">
+                <p class="py-1 correct" style="width: 80%;">Correct Answers: </p>
+                <p class="py-1 px-4 font-semibold correct">{{ correct_answer }}</p>
+            </div>
+            <div class="flex items-start justify-between p-1 rounded-sm border_bottom">
+                <p class="py-1 incorrect" style="width: 80%;">Incorrect Answers: </p>
+                <p class="py-1 px-4 font-semibold incorrect">{{ incorrect_answer }}</p>
+            </div>
+        </div>
+        <div class="w-full" style="width: 100%; text-align: center; margin: 2rem 0rem;">
+            <a href="{% url 'home' %}" id="go_to_home" class="" style="border-radius: 4px;color: #17a2b8; padding:0.5rem 1rem;">Go to Home</a>
+        </div>
+    </div>
+</div>
+<script>
+    function handleFormEntry(data){
+        const question_no = data.q_id
+        $(".question_container").text(data.question)
+        $(".question_container").attr("data-question-id", data.q_id);
+        $(".option_1_container p").text(data.option_1)
+        $(".option_2_container p").text(data.option_2)
+        $(".option_3_container p").text(data.option_3)
+        $(".option_4_container p").text(data.option_4)
+        $(".question_count").text(`${question_no ? question_no : 0} out of 30`)
+    }
+    function clearFormEntry(){
+        const question_no = ""
+        $(".question_container").text("")
+        $(".option_container").removeClass("active");
+        $(".option_container").find(".fa-square-check").hide()
+        $(".option_container").find(".fa-square").show()
+        $(".question_container").attr("data-question-id", "");
+        $(".option_1_container p").text("")
+        $(".option_2_container p").text("")
+        $(".option_3_container p").text("")
+        $(".option_4_container p").text("")
+        $(".question_count").text(`${question_no ? question_no : 0} out of 30`)
+    }
+    $(document).ready(function() {
+        $(".fa-xmark").on("click",function() {
+            $(".modal_container").hide()
+        })
+        $(document).on("click","#start_test", function() {
+            const url = '/start_test/';
+            fetch(url, {
+                method: 'GET',
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json(); 
+            })
+            .then(data => {
+                if (data.error === true){
+                    $(".result_modal_container").hide()
+                    const userResponse = confirm(data.message);
+                    if (userResponse) {
+                        const secondApiUrl = '/clear_previous_response/'; 
+                        fetch(secondApiUrl, {
+                            method: 'GET',
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok ' + response.statusText);
+                            }
+                            return response.json();
+                        })
+                        .then(secondApiData => {
+                            if (secondApiData.error === false){
+                                confirm(secondApiData.message)
+                            }
+                        })
+                        .catch((error) => {
+                            console.error('Error in second API:', error);
+                        });
+                    }
+                    return;
+                }
+                handleFormEntry(data)
+                $(".modal_container").show();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+            
+        })
+        $(document).ready(function() {
+            $(document).on("click", "#next_button",function() {
+                const url = '/start_test/';
+                let csrfToken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+                const answer = $(".option_container.active").text()
+                if (!answer) return
+                let question_id = $(".question_container").attr("data-question-id")
+                const data = {
+                    answer:answer,
+                    question_id:question_id
+                }
+                fetch(url, {
+                    method: 'POST', 
+                    headers: {
+                        'Content-Type': 'application/json', 
+                        'X-CSRFToken': csrfToken 
+                    },
+                    body: JSON.stringify(data) 
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json(); 
+                })
+                .then(data => {
+                    if(data.error === true){
+                        const secondApiUrl = '/get_result/';  
+                        fetch(secondApiUrl, {
+                            method: 'GET',
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok ' + response.statusText);
+                            }
+                            return response.json();
+                        })
+                        .then(secondApiData => {
+                            if (secondApiData.error === false){
+                                $(".font-semibold.total_marks").text(secondApiData.total_marks)
+                                $(".font-semibold.correct").text(secondApiData.correct_answer)
+                                $(".font-semibold.incorrect").text(secondApiData.incorrect_answer)
+                            }
+                        })
+                        .catch((error) => {
+                            console.error('Error in second API:', error);
+                        });
+                        $(".result_modal_container").show()
+                        clearFormEntry();
+                        return
+                    }
+                    clearFormEntry();
+                    handleFormEntry(data)
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+    
+                
+            })
+
+        })
+        $(document).on("click", ".option_container", function() {
+            if ($(this).hasClass("active")) {
+                $(this).find(".fa-square-check").hide()
+                $(this).find(".fa-square").show()
+                $(this).removeClass("active");
+            } else {
+                $(".option_container").removeClass("active");
+                $(".option_container").find(".fa-square-check").hide()
+                $(".option_container").find(".fa-square").show()
+                $(this).addClass("active");
+                $(this).find(".fa-square-check").show()
+                $(this).find(".fa-square").hide()
+            }
+        });
+    })
+</script>
+{% endblock container %}

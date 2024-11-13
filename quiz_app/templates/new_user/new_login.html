@@ -1,0 +1,28 @@
+{% extends 'new_user/authentication_template.html' %}
+{% load static %}
+{% block authentication_block %}
+<div class="registration_box">
+    <div class="heading_container">
+        <a class="navbar-brand" href="{% url 'home' %}">Quiz App<span class="logo_beta">Beta</span></a>   
+        <h4 class="mt-2">Welcome</h4>
+        <p >Log In to continue</p>
+    </div>
+    <form method="post" class="regent_registration">
+        {% csrf_token %}
+        <div class="register_input_box">
+            <input type="text" placeholder="Username" name="username">
+        </div>
+        <div class="register_input_box">
+            <img src="{% static 'images/eye-off.svg' %}" alt="" id="pwd_icon" class="pwd_icon">
+            <input type="password" placeholder="Password" class="custom-input" id="password" name="password"> 
+        </div>
+        <div class="register_input_submit">
+            <button name="submit" class="submit_btn" type="submit">Continue</button>
+        </div>
+        <span class="signup_link" style="color: black;display: block;text-align: center;">Don’t have an account? <a href="{% url 'register-page' %}">Sign Up</a></span>      
+    </form>
+</div>
+<script>
+const PwdInput=document.getElementById("password"),PwdIcon=document.getElementById("pwd_icon");PwdIcon.addEventListener("click",(t=>{t.preventDefault();const e="password"===PwdInput.getAttribute("type")?'{% static "images/eye.svg" %}':'{% static "images/eye-off.svg" %}';PwdIcon.setAttribute("src",e),PwdInput.setAttribute("type","password"===PwdInput.getAttribute("type")?"text":"password")}));
+</script>
+{% endblock authentication_block %}

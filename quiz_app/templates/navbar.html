@@ -1,0 +1,26 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'quiz_app/styles.css' %}">
+<style>
+    a{
+       color: #fea924;
+       font-weight: 600; 
+    }
+</style>
+<div class='w-full px-[5%] flex items-center justify-between sticky top-0 z-100 py-1 border-b bg-[#fcfcfc]'>
+    <div class="flex items-center justify-between py-1">
+        <span class="text-3xl font-bold text-[#17a2b8]">Quiz</span>
+    </div>
+    {% if request.user.is_authenticated %}
+        <ul class='flex items-center justify-evenly m-0 p-0 text-lg' style="margin-left: auto;">
+            <li class="">
+                <a href="{% url 'home' %}" class="block min-w-[100px] text-center w-full h-full px-4 py-2 rounded-md hover:cursor-pointer transition-all duration-150 hover:bg-[#17a2b814] ">Home</a>
+            </li>
+            <li class="">
+                <a href="{% url 'test_page' %}" class="block min-w-[100px] text-center w-full h-full px-4 py-2 rounded-md hover:cursor-pointer transition-all duration-150 hover:bg-[#17a2b814] ">Start Test</a>
+            </li>
+            <li class="">
+                <a href="{% url 'logout' %}" class="block min-w-[100px] text-center w-full h-full px-4 py-2 rounded-md hover:cursor-pointer transition-all duration-150 hover:bg-[#17a2b814] ">Logout</a>
+            </li>
+        </ul>
+    {% endif %}
+</div>

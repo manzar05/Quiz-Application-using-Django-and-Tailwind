@@ -1,0 +1,193 @@
+{% extends 'new_user/authentication_template.html' %}
+{% load static %}
+{% block authentication_block %}
+<style>
+    .registration_box{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: calc(100% - 20vw);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+    .google_registration{
+        width: calc(100%);
+        position: relative;
+    }
+    .google_registration a{
+        border: 1px solid #FF8345;
+        background: #fff;
+        color: #FF8345;
+        text-align: center;
+        padding: 0px;
+        border-radius: 8px;
+        width: 100%;
+        display: block;
+        text-decoration: none;
+    }
+    .google_registration a:hover{
+        background: #FF8345;
+        color: #fff;
+    }
+    .regent_registration{
+        box-sizing: border-box;
+        width: 100%;
+        margin-top: 50px;
+    }
+    #divider{
+        position: absolute;
+        top: 26%;
+        left: 16%;
+        width: 100%;
+        transform: translate(-16%,-26%);
+    }
+    .register_checkbox{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 90%;
+        padding-left: 10px;
+    }
+    .register_checkbox input{
+        margin-top: 5px;
+    }
+    .register_checkbox label{
+        padding-left: 5px;
+        font-size: 12px;
+        text-align: justify;
+    }
+    .register_input_box{
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+    .register_input_box label{
+        font-size: 16px;
+        font-weight: 500;
+        color: #183B56;
+        padding: 0px 0px 3px 8px;
+    }
+    .register_input_box input{
+        background: #F3F3F4;
+        outline: none;
+        border: none;
+        color: #FF8345;
+        padding: 3px;
+        padding-left: 10px;
+        font-size: 16px;
+        border-radius: 8px;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .register_input_box input:focus{
+  border: 1px solid #FF8345;
+  color: #FF8345;
+  background: #fff;
+  transition: all 0.2s;
+}
+    .register_input_submit{
+margin-top: 20px;
+    }
+.submit_btn{
+    background: #FF8345;
+    padding: 7px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    outline: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    width: 100%;
+    }
+
+.submit_btn:hover{
+  cursor: pointer;
+  background: #F5F5F5;
+  border: 1px solid #FF8345;
+  color: #FF8345;
+  transition: all 0.2s;
+}
+.signup_link,.forget_link{
+    display: block;
+    padding: 10px;
+    padding-right: 10px;
+    text-align: center;
+}
+.forget_link{
+    text-align: right;
+    font-weight: 500;
+    padding: 0px;
+    margin-top: -10px;
+    margin-bottom: -10px;
+}
+.signup_link a, .forget_link a{
+    padding-left: 5px;
+    color: #FF8345;
+    text-decoration: none;
+}
+.signup_link a:hover,.forget_link a:hover{
+    cursor: pointer;
+    text-decoration: underline;
+    color:#183B56;
+    transition: all 0.2s;
+}
+@media screen and (max-width:2560px) {
+    .register_input_box label{
+        font-size: 20px;
+    }
+    .register_input_box input{
+        padding: 7px;
+        padding-left: 10px;
+        font-size: 20px;
+        margin-bottom: 30px;
+    }
+    .register_checkbox input{
+        margin-top: 6px;
+    }
+    .register_checkbox label{
+        font-size: 16px;
+        padding-left: 8px;
+    }
+    .google_registration{
+        margin-bottom: 2rem;
+    }
+}
+/* Assuming you have a class for the input, for example, .custom-input */
+.custom-input::-ms-reveal {
+    display: none;
+}
+.pwd_icon{
+    width: 24px;
+    position: absolute;
+    right: 11px;
+    bottom: 42px;
+    z-index: 1;
+}
+
+
+@media screen and (max-width:1440px) {
+    .register_input_box label{
+        font-size: 16px;
+    }
+    .register_input_box input{
+        padding: 5px;
+        padding-left: 10px;
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+}
+.registration_box{width:560px;}
+</style>
+<div class="registration_box">
+    <div class="register_container">
+        <div style="display: flex;">
+            <a class="navbar-brand" href="{% url 'home' %}" style="margin-bottom: 10px;">Quiz App<span class="logo_beta">Beta</span></a>   
+        </div>
+        <h5 class="text-center mt-3" style="color:#092337;">Logged out Successfully!</h5>
+        <h6 class="text-center mt-3" style="color:#092337;">Go to login Page <a href="{% url 'login' %}" style="color: #c30505;margin-left:5px;">Login</a></h6>
+    </div>
+</div>
+{% endblock authentication_block %}

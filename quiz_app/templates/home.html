@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block container %}
+<style>
+    .quiz_icon{
+        background-image: url("{% static 'images/QUIZ-3D.png' %}");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+    .bulb_image{
+        width: 68px;
+        position: absolute;
+        top: 120px;
+        opacity: 50;
+    }
+</style>
+<div class="main_container text-3xl flex flex-col items-center justify-center">
+    <div class='grid gap-5 grid-cols-4 auto-rows-[minmax(220px,auto)] text-[#171717]'>
+        <div class="col-span-4 row-span-1 sm:row-span-2 px-4 py-2 sm:py-5 flex flex-col items-start justify-center bg-[#17a2b8]">
+            <div class='grid gap-5 grid-cols-5 auto-rows-[minmax(200px,auto)] py-4'>
+                <div class="col-span-3 row-span-1 sm:row-span-2 px-4 py-2 sm:py-5 flex flex-col items-start justify-center">
+                    <div class="relative flex items-start justify-center flex-col gap-4 ms-4 w-[80%]">
+                        <img src="{% static 'images/bulb.png' %}" alt="" class="bulb_image">
+                        <h1 class="text-4xl font-bold text-[#dddddd] mb-4">Challenge Your Knowledge, One Question at a Time!</h1>
+                        <div class="text-center mt-4"><a href="{% url 'test_page' %}" class="block min-w-[100px] text-xl text-center w-full h-full px-6 py-2 rounded-full hover:cursor-pointer transition-all duration-150 bg-[#00394f] text-[#fff] hover:bg-[#00394ff0] hover:text-[#f6f6f6]">Get Started</a></div>
+                    </div>  
+                </div>
+                <div class="col-span-2 row-span-1 sm:row-span-2 px-4 py-2 sm:py-5 flex flex-col items-start justify-center quiz_icon">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock container %}

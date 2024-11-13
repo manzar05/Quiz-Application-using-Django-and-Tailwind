@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block container %}
+<script src="{% static 'js/loader.js' %}"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="{% static 'css/user/registration.css' %}">
+<style>.navbar-brand:focus{cursor: pointer;color: #17a2b8;transition: all 0.2s;}
+
+.heading_container p,
+.heading_container h4{
+    color: #64748b;
+}
+</style>
+<div class="preloader" id="preloader">
+    <div class="loader">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+</div>
+<div class="custom-msg" style="display:none">
+    {% if messages %}
+    <ul class="messages"  >
+        {% for message in messages %}
+        <li class="{{ message.tags }}" data-message="{{ message }}" display="none">{{message}}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+<style>
+    .custom_notification_toast_fp{position: fixed;
+        top: 1rem;
+        right: 1rem;
+        background: rgb(255, 255, 255);
+        color: white;
+        min-width: 180px;
+        padding: 0.25rem 0.5rem;
+        border-radius: 8px;
+        display: none;
+        box-shadow: 2px 2px 10px #1c1c1c16;
+    }
+    .custom_notification_toast_fp.active{
+        display: block;
+    }
+    .close_toast{
+        float: right;
+    }
+    .custom_message{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+    .custom_message_items{
+        margin: 0.2rem;
+        font-size: 15px;
+    }
+    .fa-info.custom_message_items{
+        padding: 0px;
+        padding-left: 2px;
+        padding-bottom: 1px;
+        border-radius: 50px;
+        width: 20px;
+        font-size: 11px;
+        height: 20px;
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+<div class="custom_notification_toast_fp" >
+    <div class="custom_message">
+        <i class="fa fa-info custom_message_items"></i>
+        <span class="text_subject custom_message_items" style="padding-left: 5px;"></span>
+    </div>
+</div> 
+<div class="main_container">
+    <section class="registration_container">
+        {% block authentication_block %}
+        {% endblock authentication_block %}
+    </section>
+</div>
+<script>
+    function notificationHandler(subjectType, messageType){
+        const customToast = $(".custom_notification_toast_fp");
+        if(subjectType == "Success"){
+            customToast.addClass("active");
+            customToast.css("color","#2ee05f");
+            customToast.css("background","#e6fffa");
+            $(".fa-info").css("border","1px solid #2ee05f");
+            $(".custom_message .text_subject").text(messageType);
+        } else if(subjectType == "Error"){
+            customToast.addClass("active");
+            customToast.css("color","#fa8b6b");
+            customToast.css("background","#fbf2ef");
+            $(".fa-info").css("border","1px solid #fa8b6b");               
+            $(".custom_message .text_subject").text(messageType);
+        } else {
+            customToast.addClass("active");
+            $(".custom_message .text_subject").text(messageType);
+            customToast.css("color","#ffae1f");
+            customToast.css("background","#fef5e5");
+            $(".fa-info").css("border","1px solid #ffae1f");
+        }
+
+        timer1 = setTimeout(() => {
+            customToast.removeClass("active");
+        }, 2000);
+    }
+
+    // Notification Close Button Handler 
+    $(".custom_notification_toast_fp .close_toast").on("click", function() { 
+        customToast.removeClass("active");
+        clearTimeout(timer1);
+    });
+
+    // Trigger toast notifications for each message
+    $(document).ready(function() {
+        $(".messages li").each(function() {
+            const tag = $(this).attr("class");
+            const msg_txt = $(this).data("message");
+            if (tag && msg_txt) {
+                notificationHandler(tag, msg_txt);
+            }
+        });
+    });
+</script>
+{% endblock container %}

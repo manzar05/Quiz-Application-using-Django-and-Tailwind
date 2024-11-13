@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block container %}
+<style>
+.result_modal_container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(34, 34, 34, 0.571);
+    color: black;
+}
+.test_set_container{
+    width: 600px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: white;
+    padding: 1rem 2rem;
+    border-radius: 14px;
+}
+.incorrect{
+color: #ff2626ba;
+font-weight: 600;
+}
+.correct{
+color: #00cb00d1;
+font-weight: 600;
+}
+.total_marks{
+color: #17a2b8;
+font-weight: 600;
+}
+.completed{
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    background-color: #ff7200db;
+    color: white;
+    padding: 0.25rem 1rem;
+    border-radius: 6px;
+    margin: 1.5rem 0rem;
+    margin-top: 2rem;
+}
+.border_bottom{
+    border-bottom: 1px solid rgba(32, 32, 32, 0.085);
+}
+h3{
+    font-size:20px;
+}
+#go_to_home:hover{
+    text-decoration: underline;
+}
+</style>
+    <div class="result_modal_container" style="z-index: 10;display: none;">
+        <div class="test_set_container flex items-center justify-start flex-col min-w-[400px] rounded-xl shadow-md bg-white">
+            <p class="text-center completed">Final Result</p>
+            <hr/>
+            <div class="answers text-left w-[80%]">
+                <div class="flex items-start justify-between p-1 rounded-sm border_bottom">
+                    <p class="py-1 total_marks" style="width: 80%;">Total Marks:</p>
+                    <p class="py-1 px-4 font-semibold total_marks" >{{ total_marks }}</p>
+                </div>
+                <div class="flex items-start justify-between p-1 rounded-sm border_bottom">
+                    <p class="py-1 correct" style="width: 80%;">Correct Answers: </p>
+                    <p class="py-1 px-4 font-semibold correct">{{ correct_answer }}</p>
+                </div>
+                <div class="flex items-start justify-between p-1 rounded-sm border_bottom">
+                    <p class="py-1 incorrect" style="width: 80%;">Incorrect Answers: </p>
+                    <p class="py-1 px-4 font-semibold incorrect">{{ incorrect_answer }}</p>
+                </div>
+            </div>
+            <div class="w-full" style="width: 100%; text-align: center; margin: 2rem 0rem;">
+                <a href="{% url 'home' %}" id="go_to_home" class="" style="border-radius: 4px;color: #17a2b8; padding:0.5rem 1rem;">Go to Home</a>
+            </div>
+        </div>
+    </div>
+{% endblock container %}

@@ -1,0 +1,19 @@
+:root{--logo_orange: #17a2b8;--border_grey: #e2e8f0;--sub_d_grey: #64748b;--main-head: #020817;--background: #fff;}
+.li_links:hover{
+    border-bottom: 2px solid white;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.quiz_icon{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+p{
+    color: #64748b;
+}
+.heading_container p,
+.heading_container h4{
+    color: #64748b;
+}
